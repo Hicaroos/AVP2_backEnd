@@ -1,0 +1,20 @@
+CREATE DATABASE IF NOT EXISTS avp2;
+
+USE avp2;
+
+CREATE TABLE IF NOT EXISTS produtos(
+	id VARCHAR(36) NOT NULL DEFAULT (UUID()) PRIMARY KEY,
+    nome VARCHAR(64) NOT NULL,
+    tipo VARCHAR(32),
+    valor FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS compras(
+	id VARCHAR(36) NOT NULL DEFAULT (UUID()) PRIMARY KEY,
+    idProduto VARCHAR(36) NOT NULL,
+    valorEntrada FLOAT NOT NULL,
+    qtdParcelas INT NOT NULL,
+    FOREIGN KEY (idProduto) REFERENCES produtos(id),
+    vlrParcela FLOAT,
+    jurosAplicados FLOAT
+);
