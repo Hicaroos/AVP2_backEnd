@@ -21,7 +21,6 @@ class ProdutosController
         }
         try {
             $produto = new Produtos($dados['nome'], $dados['tipo'], $dados['valor']);
-            print_r($produto);
             $dao = new ProdutosDAO();
             $dao->cadastrarProduto($produto);
             http_response_code(201);
