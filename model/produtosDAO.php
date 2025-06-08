@@ -22,5 +22,15 @@ class ProdutosDAO
             $produto->getTipo(),
             $produto->getValor()
         ]);
+
     }
+    public function validarIdProduto($idProduto){
+        
+        $stmt = $this->Conn->prepare('SELECT id FROM produtos WHERE id = ?');  
+        $stmt->execute([$idProduto]);
+        $teste = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $teste;
+
+    }
+    
 }

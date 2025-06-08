@@ -6,12 +6,15 @@ class Compras
     private $idProduto;
     private $valorEntrada;
     private $qntParcelas;
+    private $vlrParcela;
+    private $jurosAplicado;
 
-    public function __construct($idProduto, $valorEntrada, $qntParcelas)
+    public function __construct($idProduto, $valorEntrada, $qntParcelas, $vlrParcela)
     {
         $this->idProduto = $idProduto;
         $this->valorEntrada = $valorEntrada;
         $this->qntParcelas = $qntParcelas;
+        $this->vlrParcela = $vlrParcela;
     }
 
     public function getId()
@@ -33,6 +36,14 @@ class Compras
     {
         return $this->qntParcelas;
     }
+    public function getVlrParcela()
+    {
+        return $this->vlrParcela;
+    }
+    public function getJurosAplicado()
+    {
+        return $this->jurosAplicado;
+    }
     public function setQntParcelas($qntParcelas)
     {
         $this->qntParcelas = $qntParcelas;
@@ -48,5 +59,13 @@ class Compras
     public function setId($id)
     {
         $this->id = $id;
+    }
+    public function setVlrParcela($vlrParcela)
+    {
+        $this->vlrParcela = $vlrParcela;
+    }
+    public function setJurosAplicado($jurosAplicado)
+    {
+        $this->jurosAplicado = $jurosAplicado;
     }
 }
