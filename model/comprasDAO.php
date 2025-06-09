@@ -64,4 +64,16 @@ class ComprasDAO
         $valor = $stmt->fetch(PDO::FETCH_ASSOC);
         return $valor['valor'];
     }
+
+    public function buscarCompras(){
+    
+        $stmt = $this->conn->prepare(
+        "SELECT c.id as idCompra,p.nome as nomeProduto, p.tipo as tipoProduto, p.valor as valorProduto, c.valorEntrada, c.qtdParcelas, c.vlrParcela as valorParcela, c.jurosAplicados as taxaJuros
+                FROM compras c
+                JOIN produtos p ON c.idProduto = p.id");
+        $stmt->execute();
+
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $dados;
+    }
 }

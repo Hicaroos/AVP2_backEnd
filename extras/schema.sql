@@ -18,3 +18,10 @@ CREATE TABLE IF NOT EXISTS compras(
     vlrParcela FLOAT,
     jurosAplicados FLOAT
 );
+
+create table if not exists juros(
+	id int primary key auto_increment,
+    dataInicial date,
+    dataFinal date,
+    juros float
+);

@@ -12,8 +12,8 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch($uri){
     case '/produtos':
         if($method == 'POST'){
-            $teste = new ProdutosController();
-            $teste->criarProduto();
+            $produto = new ProdutosController();
+            $produto->salvarProduto();
         }else{
             http_response_code(405);
         }
@@ -22,8 +22,12 @@ switch($uri){
     case '/compras':{
         if($method == 'POST'){
             $compras = new ComprarController();
-            $compras->store();
-        }else{
+            $compras->salvarCompras();
+        }elseif($method == 'GET'){
+            $compras = new ComprarController();
+            $compras->buscar();
+        }
+        else{
             http_response_code(405);
         }
         break;

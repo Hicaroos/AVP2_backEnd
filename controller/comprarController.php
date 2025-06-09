@@ -17,6 +17,8 @@ class ComprarController
         $json = file_get_contents('php://input');
         $dados = json_decode($json, true);
 
+        // VALIDACAO CONTRA JHON
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             http_response_code(400);
             return;
@@ -34,6 +36,12 @@ class ComprarController
         }
 
         $valor = $dao->buscarValorProduto($dados['idProduto']);
+        if($dados['qtdParcelas'] < 0 || $dados['valorEntrada'] < 0 || $dados['valorEntrada'] > $valor)
+        {
+            http_response_code(422);
+            return;
+        }
+        
         $valorParcela = 0.0;
         $jurosAplicado = 0.0;
 
@@ -60,5 +68,13 @@ class ComprarController
         } catch (Exception $e) {
             http_response_code(404);
         }
+    }
+
+    public function buscar(){
+
+        $busca = new ComprasDAO();
+        $dados = $busca->buscarCompras();
+        echo json_encode($dados);
+        
     }
 }
