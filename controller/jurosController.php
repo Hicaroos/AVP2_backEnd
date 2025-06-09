@@ -1,8 +1,9 @@
 <?php
 
+require_once '../model/comprasDAO.php';
+require_once '../model/jurosDAO.php';
 class JurosController
 {
-
     public function atualizarJuros()
     {
 
@@ -41,8 +42,12 @@ class JurosController
             }
 
             $dao = new ComprasDAO();
-            $dao->atualizarBDJuros($valorTotal);
+            $dao->atualizarBDCompras($valorTotal);
 
+            $jurosModel = new Juros($dados['dataInicio'],$dados['dataFinal'],$valorTotal);
+            $jurosDao = new JurosDAO();
+            $jurosDao->salvarJuros($jurosModel);
+            
             http_response_code(200);
             echo json_encode(["sucesso" => "A taxa de juros foi atualizada"]);
         } catch (Exception $e) {

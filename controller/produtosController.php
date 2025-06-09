@@ -5,7 +5,7 @@ require_once '../model/ProdutosDAO.php';
 class ProdutosController
 {
 
-    public function criarProduto()
+    public function salvarProduto()
     {
         $json = file_get_contents('php://input');
         $dados = json_decode($json, true);

@@ -32,7 +32,7 @@ class Compras
         return $this->valorEntrada;
     }
 
-    public function getQntParcelas()
+    public function getQtdParcelas()
     {
         return $this->qntParcelas;
     }

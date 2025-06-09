@@ -17,16 +17,17 @@ class ComprasDAO
     public function comprar(Compras $compras)
     {
 
-        $sql = "INSERT INTO compras (idProduto, valorEntrada, qtdParcelas, vlrParcela) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO compras (idProduto, valorEntrada, qtdParcelas, vlrParcela, jurosAplicados) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             $compras->getIdProduto(),
             $compras->getValorEntrada(),
-            $compras->getQntParcelas(),
-            $compras->getVlrParcela()
+            $compras->getQtdParcelas(),
+            $compras->getVlrParcela(),
+            $compras->getJurosAplicado()
         ]);
     }
-    public function atualizarBDJuros($totalTaxas)
+    public function atualizarBDCompras($totalTaxas)
     {
         $select = "SELECT c.id, c.valorEntrada, c.qtdParcelas, p.valor
                 FROM compras c
@@ -42,12 +43,12 @@ class ComprasDAO
         foreach ($valoresBD as $valor) {
 
             $stmt2 = $this->conn->prepare($update);
-            $valorFinancimento = $valor['valor'] - $valor['valorEntrada'];
-            $jurosDecimais = $totalTaxas / 100;
-            $valorComJuros = $valorFinancimento * ($jurosDecimais + 1);
-            $valorParcelas = $valorComJuros / $valor['qtdParcelas'];
             
-            $JUROSTOTAL = $valorComJuros - $valorFinancimento;
+            $valorFinanciamento = $valor['valor'] - $valor['valorEntrada'];
+            $jurosSelic = $totalTaxas / 100;
+            $valorComJuros = $valorFinanciamento * ($jurosSelic + 1);
+            $valorParcelas = $valorComJuros / $valor['qtdParcelas'];
+            $JUROSTOTAL = $valorComJuros - $valorFinanciamento;
 
                 $stmt2->execute([
                     $valorParcelas,
@@ -56,5 +57,11 @@ class ComprasDAO
                 ]);
         }
     }
-
+    public function buscarValorProduto($idProduto){
+        $sql = "SELECT valor FROM produtos WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idProduto]);
+        $valor = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $valor['valor'];
+    }
 }
