@@ -11,15 +11,27 @@ class JurosDAO{
         $this->conn = Conexao::getConn();        
     }
 
-    public function salvarJuros(Juros $juros){
+     public function salvarJuros(Juros $juros){
+        $consulta = $this->conn->prepare('SELECT id FROM juros WHERE id = 1');
+        $consulta->execute();
 
-        $stmt = $this->conn->prepare('UPDATE juros SET dataInicio = ?, dataFInal = ?, juros = ? WHERE id = 1');
-        $stmt->execute([
-            $juros->getDataInicial(),
-            $juros->getDataFinal(),
-            $juros->getJuros()
-        ]);
+        if ($consulta->fetch(PDO::FETCH_ASSOC)) {
+            $stmt = $this->conn->prepare('UPDATE juros SET dataInicio = ?, dataFinal = ?, juros = ? WHERE id = 1');
+            $stmt->execute([
+                $juros->getDataInicial(),
+                $juros->getDataFinal(),
+                $juros->getJuros()
+            ]);
+        } else {
+            $stmt = $this->conn->prepare('INSERT INTO juros (id, dataInicio, dataFinal, juros) VALUES (1, ?, ?, ?)');
+            $stmt->execute([
+                $juros->getDataInicial(),
+                $juros->getDataFinal(),
+                $juros->getJuros()
+            ]);
+        }
     }
+    
     public function mostrarJuros(){
 
     $stmt = $this->conn->prepare('SELECT juros from juros');

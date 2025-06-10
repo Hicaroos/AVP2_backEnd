@@ -32,7 +32,7 @@ switch ($uri) {
             }
             break;
         }
-    case '/estatisticas': {
+    case '/estatistica': {
             if ($method == 'GET') {
                 $est = new EstatisticasController();
                 $est->buscaEstatisticas();
