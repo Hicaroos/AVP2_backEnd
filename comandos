@@ -1,0 +1,16 @@
+{
+	"dataInicio" : "2025-05-01",
+	"dataFinal" : "2025-06-01"
+}
+
+{
+	"idProduto" : "",
+	"valorEntrada" : 1000,
+	"qtdParcelas" : 8
+}
+
+{
+	"nome" : "Celular A",
+	"tipo" : "SmartPhone",
+	"valor" : 2000
+}

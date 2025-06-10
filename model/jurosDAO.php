@@ -37,7 +37,7 @@ class JurosDAO{
     $stmt = $this->conn->prepare('SELECT juros from juros');
     $stmt->execute();
     $juros = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    return $juros['juros'];
+
+    return $juros ? $juros['juros'] : false;
     }
 }

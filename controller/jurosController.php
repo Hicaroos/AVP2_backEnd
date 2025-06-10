@@ -13,7 +13,11 @@ class JurosController
             http_response_code(400);
             return;
         }
-        
+        if (!isset($dados['dataInicio']) || !isset($dados['dataFinal'])) {
+            http_response_code(422);
+            return;
+        }
+
         try {
             $dataInicio = new DateTime($dados['dataInicio']);
             $dataFinal = new DateTime($dados['dataFinal']);
@@ -53,7 +57,7 @@ class JurosController
             $jurosDao->salvarJuros($jurosModel);
 
             http_response_code(200);
-            echo json_encode(["sucesso" => "A taxa de juros foi atualizada"]);
+            echo json_encode(["sucesso" => "A taxa de juros foi atualizada", "novaTaxaDeJuros" => $valorTotal]);
         } catch (Exception $e) {
             http_response_code(400);
         }

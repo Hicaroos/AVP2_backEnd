@@ -50,6 +50,10 @@ class ComprarController
 
         if ($dados['qtdParcelas'] > 6) {
             $valorJuros = $juros->mostrarJuros();
+            if($valorJuros === false){
+                http_response_code(400);
+                return;
+            }
             $jurosSelic = $valorJuros / 100;
             $valorFinanciamento = $valor - $dados['valorEntrada'];
             $valorComJuros = $valorFinanciamento * ($jurosSelic + 1);
