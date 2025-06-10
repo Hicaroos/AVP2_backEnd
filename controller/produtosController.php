@@ -19,9 +19,18 @@ class ProdutosController
             http_response_code(422);
             return;
         }
+
+        $dao = new ProdutosDAO();
+
+        $validNomeProduto = $dao->validarNomeProduto($dados['nome']);
+        if ($validNomeProduto) {
+            http_response_code(422);
+            return;
+        }
+
         try {
             $produto = new Produtos($dados['nome'], $dados['tipo'], $dados['valor']);
-            $dao = new ProdutosDAO();
+            
             $dao->cadastrarProduto($produto);
             http_response_code(201);
         } catch (Exception $e) {

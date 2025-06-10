@@ -30,26 +30,25 @@ class ComprarController
         }
 
         $validIdProduto = $produto->validarIdProduto($dados['idProduto']);
-        if(!$validIdProduto){
+        if (!$validIdProduto) {
             http_response_code(422);
             return;
         }
 
         $valor = $dao->buscarValorProduto($dados['idProduto']);
-        if($dados['qtdParcelas'] < 0 || $dados['valorEntrada'] < 0 || $dados['valorEntrada'] > $valor)
-        {
+        if ($dados['qtdParcelas'] < 0 || $dados['valorEntrada'] < 0 || $dados['valorEntrada'] > $valor) {
             http_response_code(422);
             return;
         }
-        
+
         $valorParcela = 0.0;
         $jurosAplicado = 0.0;
 
-        if($dados['qtdParcelas'] > 0){
+        if ($dados['qtdParcelas'] > 0) {
             $valorParcela = ($valor - $dados['valorEntrada']) / $dados['qtdParcelas'];
         }
-        
-        if($dados['qtdParcelas'] > 6){
+
+        if ($dados['qtdParcelas'] > 6) {
             $valorJuros = $juros->mostrarJuros();
             $jurosSelic = $valorJuros / 100;
             $valorFinanciamento = $valor - $dados['valorEntrada'];
@@ -59,22 +58,23 @@ class ComprarController
         }
 
         try {
-            $compra = new Compras($dados['idProduto'], $dados['valorEntrada'], $dados['qtdParcelas'],$valorParcela);
+            $compra = new Compras($dados['idProduto'], $dados['valorEntrada'], $dados['qtdParcelas'], $valorParcela);
             $compra->setJurosAplicado($jurosAplicado);
             $dao->comprar($compra);
 
             http_response_code(201);
-
         } catch (Exception $e) {
-            http_response_code(404);
+            http_response_code(400);
         }
     }
-
-    public function buscar(){
-
+    public function buscar()
+    {
         $busca = new ComprasDAO();
         $dados = $busca->buscarCompras();
+        if(count($dados) == 0){
+            http_response_code(404);
+            return;
+        }
         echo json_encode($dados);
-        
     }
 }

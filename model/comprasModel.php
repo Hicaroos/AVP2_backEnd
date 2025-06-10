@@ -17,55 +17,16 @@ class Compras
         $this->vlrParcela = $vlrParcela;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIdProduto()
-    {
-        return $this->idProduto;
-    }
-
-    public function getValorEntrada()
-    {
-        return $this->valorEntrada;
-    }
-
-    public function getQtdParcelas()
-    {
-        return $this->qntParcelas;
-    }
-    public function getVlrParcela()
-    {
-        return $this->vlrParcela;
-    }
-    public function getJurosAplicado()
-    {
-        return $this->jurosAplicado;
-    }
-    public function setQntParcelas($qntParcelas)
-    {
-        $this->qntParcelas = $qntParcelas;
-    }
-    public function setValorEntrada($valorEntrada)
-    {
-        $this->valorEntrada = $valorEntrada;
-    }
-    public function setIdProduto($idProduto)
-    {
-        $this->idProduto = $idProduto;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function setVlrParcela($vlrParcela)
-    {
-        $this->vlrParcela = $vlrParcela;
-    }
-    public function setJurosAplicado($jurosAplicado)
-    {
-        $this->jurosAplicado = $jurosAplicado;
-    }
+    public function getId(){return $this->id;}
+    public function getIdProduto(){return $this->idProduto;}
+    public function getValorEntrada(){return $this->valorEntrada;}
+    public function getQtdParcelas(){return $this->qntParcelas;}
+    public function getVlrParcela(){return $this->vlrParcela;}
+    public function getJurosAplicado(){return $this->jurosAplicado;}
+    public function setQntParcelas($qntParcelas){$this->qntParcelas = $qntParcelas;}
+    public function setValorEntrada($valorEntrada){$this->valorEntrada = $valorEntrada;}
+    public function setIdProduto($idProduto){$this->idProduto = $idProduto;}
+    public function setId($id){$this->id = $id;}
+    public function setVlrParcela($vlrParcela){$this->vlrParcela = $vlrParcela;}
+    public function setJurosAplicado($jurosAplicado){$this->jurosAplicado = $jurosAplicado;}
 }
