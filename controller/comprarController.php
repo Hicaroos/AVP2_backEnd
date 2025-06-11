@@ -27,7 +27,7 @@ class ComprarController
             http_response_code(422);
             return;
         }
-        if (is_numeric($dados['idProduto']) || !is_numeric($dados['valorEntrada']) || !is_numeric($dados['qtdParcelas'])) {
+        if (!is_numeric($dados['valorEntrada']) || !is_numeric($dados['qtdParcelas'])) {
             http_response_code(422);
             return;
         }
@@ -43,9 +43,13 @@ class ComprarController
             http_response_code(422);
             return;
         }
+        if ($valor == $dados['valorEntrada'] && $dados['qtdParcelas'] > 0 || $dados['valorEntrada'] < $valor && $dados['qtdParcelas'] == 0) {
+            http_response_code(422);
+            return;
+        }
 
-        $valorParcela = 0.0;
-        $jurosAplicado = 0.0;
+        $valorParcela = 0;
+        $jurosAplicado = 0;
 
         if ($dados['qtdParcelas'] > 0) {
             $valorParcela = ($valor - $dados['valorEntrada']) / $dados['qtdParcelas'];

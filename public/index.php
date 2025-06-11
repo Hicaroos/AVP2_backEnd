@@ -1,6 +1,6 @@
 <?php
 
-header('Content_Type: application/json');
+header('Content-Type: application/json');
 
 require_once '../controller/ProdutosController.php';
 require_once '../controller/comprarController.php';
