@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS compras(
 
 create table if not exists juros(
 	id int primary key auto_increment,
-    dataInicial date,
+    dataInicio date,
     dataFinal date,
     juros float
 );

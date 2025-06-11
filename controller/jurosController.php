@@ -25,7 +25,7 @@ class JurosController
             $limiteInicio = new DateTime('2010-01-01');
 
             if ($dataFinal < $dataInicio || $dataFinal > $hoje || $dataInicio < $limiteInicio) {
-                http_response_code(422);
+                http_response_code(400);
                 return;
             }
             $dataInicioFormat = $dataInicio->format('d/m/Y');

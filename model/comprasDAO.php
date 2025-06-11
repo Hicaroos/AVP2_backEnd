@@ -38,7 +38,7 @@ class ComprasDAO
 
         foreach ($valoresBD as $valor) {
 
-            $stmt2 = $this->conn->prepare($update);
+            $stmtValor = $this->conn->prepare($update);
 
             $valorFinanciamento = $valor['valor'] - $valor['valorEntrada'];
             $jurosSelic = $totalTaxas / 100;
@@ -46,7 +46,7 @@ class ComprasDAO
             $valorParcelas = $valorComJuros / $valor['qtdParcelas'];
             $jurosTotal = $valorComJuros - $valorFinanciamento;
 
-            $stmt2->execute([
+            $stmtValor->execute([
                 $valorParcelas,
                 $jurosTotal,
                 $valor['id']

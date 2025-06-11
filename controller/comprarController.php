@@ -23,8 +23,11 @@ class ComprarController
             http_response_code(400);
             return;
         }
-
         if (!isset($dados['idProduto']) || !isset($dados['valorEntrada']) || !isset($dados['qtdParcelas'])) {
+            http_response_code(422);
+            return;
+        }
+        if (is_numeric($dados['idProduto']) || !is_numeric($dados['valorEntrada']) || !is_numeric($dados['qtdParcelas'])) {
             http_response_code(422);
             return;
         }

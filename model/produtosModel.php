@@ -7,13 +7,11 @@ class Produtos
     private $tipo;
     private $valor;
 
-    public function __construct($nome, $tipo, $valor)
+    public function __construct($nome, $valor)
     {
         $this->nome = $nome;
-        $this->tipo = $tipo;
         $this->valor = $valor;
     }
-
     public function getId(){return $this->id;}
     public function getNome(){return $this->nome;}
     public function getTipo(){return $this->tipo;}

@@ -19,6 +19,16 @@ class ProdutosController
             http_response_code(422);
             return;
         }
+        if (!is_string($dados['nome']) || !is_numeric($dados['valor'])) {
+            http_response_code(422);
+            return;
+        }
+        if(isset($dados['tipo'])){
+            if (!is_string($dados['tipo'])){
+                http_response_code(422);
+                return;
+            }
+        }
 
         $dao = new ProdutosDAO();
 
@@ -29,8 +39,11 @@ class ProdutosController
         }
 
         try {
-            $produto = new Produtos($dados['nome'], $dados['tipo'], $dados['valor']);
-            
+            $produto = new Produtos($dados['nome'], $dados['valor']);
+            if (isset($dados['tipo'])) {
+                $produto->setTipo($dados['tipo']);
+            }
+
             $dao->cadastrarProduto($produto);
             http_response_code(201);
         } catch (Exception $e) {
